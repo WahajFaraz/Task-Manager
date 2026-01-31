@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Task Manager Design System - Modern, Clean, Professional */
+
+@layer base {
+  :root {
+    /* Core brand colors - Sophisticated teal/slate palette */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary - Deep teal */
+    --primary: 192 85% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm slate */
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 215 20% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent - Amber/Orange */
+    --accent: 38 95% 55%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Status colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    /* Priority colors */
+    --priority-high: 0 84% 60%;
+    --priority-medium: 38 92% 50%;
+    --priority-low: 142 76% 36%;
+
+    /* Kanban columns */
+    --kanban-todo: 215 20% 95%;
+    --kanban-progress: 199 89% 95%;
+    --kanban-done: 142 76% 95%;
+
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 192 85% 35%;
+
+    --radius: 0.75rem;
+
+    /* Glass effect */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 0 0% 100% / 0.3;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Sidebar */
+    --sidebar-background: 215 25% 97%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 192 85% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 20% 93%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 215 20% 90%;
+    --sidebar-ring: 192 85% 35%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 192 85% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 217 33% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 38 95% 55%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 45%;
+    --success-foreground: 222 47% 6%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 222 47% 6%;
+    --info: 199 89% 55%;
+    --info-foreground: 222 47% 6%;
+
+    --priority-high: 0 72% 55%;
+    --priority-medium: 38 92% 55%;
+    --priority-low: 142 76% 45%;
+
+    --kanban-todo: 217 33% 12%;
+    --kanban-progress: 199 50% 12%;
+    --kanban-done: 142 40% 12%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 192 85% 50%;
+
+    --glass-bg: 222 47% 9% / 0.8;
+    --glass-border: 210 40% 98% / 0.1;
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 192 85% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 18%;
+    --sidebar-ring: 192 85% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  /* Glass card effect */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-lg border border-border/50;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(192 85% 45%) 100%);
+  }
+
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(45 93% 47%) 100%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(192 85% 25%) 50%, hsl(222 47% 11%) 100%);
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-1;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Status badges */
+  .badge-todo {
+    @apply bg-secondary text-secondary-foreground;
+  }
+
+  .badge-progress {
+    @apply bg-info/10 text-info;
+  }
+
+  .badge-done {
+    @apply bg-success/10 text-success;
+  }
+
+  /* Priority badges */
+  .priority-high {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  .priority-medium {
+    @apply bg-warning/10 text-warning;
+  }
+
+  .priority-low {
+    @apply bg-success/10 text-success;
+  }
+
+  /* Smooth page transitions */
+  .page-transition {
+    @apply animate-in fade-in slide-in-from-bottom-4 duration-500;
+  }
+
+  /* Kanban column styles */
+  .kanban-column {
+    @apply rounded-xl p-4 min-h-[500px];
+  }
+
+  .kanban-todo {
+    @apply bg-kanban-todo;
+  }
+
+  .kanban-progress {
+    @apply bg-kanban-progress;
+  }
+
+  .kanban-done {
+    @apply bg-kanban-done;
+  }
+}
+
+@layer utilities {
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
