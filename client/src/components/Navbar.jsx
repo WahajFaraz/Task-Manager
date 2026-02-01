@@ -88,6 +88,13 @@ const Navbar = () => {
 
           {/* Right side items */}
           <div className="flex items-center gap-4">
+            {/* Logout Button - Moved to first position */}
+            <Button variant="destructive" size="sm" onClick={handleLogout} className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white">
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Logout</span>
+              <span className="sm:hidden">Out</span>
+            </Button>
+
             {/* Notifications */}
             <Button variant="ghost" size="sm" className="hidden sm:flex">
               <Bell className="h-4 w-4" />
@@ -96,13 +103,6 @@ const Navbar = () => {
                   {stats.overdue}
                 </Badge>
               )}
-            </Button>
-
-            {/* Logout Button */}
-            <Button variant="destructive" size="sm" onClick={handleLogout} className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white">
-              <LogOut className="h-4 w-4" />
-              <span className="hidden sm:inline">Logout</span>
-              <span className="sm:hidden">Out</span>
             </Button>
 
             {/* User Menu */}

@@ -15,7 +15,7 @@ export const useTask = () => {
 const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [activityData, setActivityData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch tasks on mount
   const refreshTasks = useCallback(async () => {
