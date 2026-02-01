@@ -12,7 +12,7 @@ const app = express();
 // CORS configuration for Vercel
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-task-manager.vercel.app', 'https://task-manager.vercel.app']
+    ? ['https://task-manager-client.vercel.app', 'https://task-manager.vercel.app']
     : ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:8081'],
   credentials: true
 }));
@@ -35,6 +35,22 @@ connectDB();
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
+
+// Home route with server info
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Task Manager API Server',
+    version: '1.0.0',
+    status: 'Running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      tasks: '/api/tasks'
+    },
+    environment: process.env.NODE_ENV || 'development',
+    timestamp: new Date().toISOString()
+  });
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
