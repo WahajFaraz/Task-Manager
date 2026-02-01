@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       '/api': {
-        target: mode === 'production' ? 'https://your-task-manager.vercel.app' : 'http://localhost:5000',
+        target: mode === 'production' ? 'https://task-manager-back-psi.vercel.app' : 'http://localhost:5000',
         changeOrigin: true,
         secure: mode === 'production',
       },
