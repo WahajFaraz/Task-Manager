@@ -12,9 +12,11 @@ const app = express();
 // CORS configuration for Vercel
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://task-manager-client.vercel.app', 'https://task-manager.vercel.app']
+    ? ['https://task-manager-rho-ruby.vercel.app', 'https://task-manager-client.vercel.app', 'https://task-manager.vercel.app']
     : ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:8081'],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
