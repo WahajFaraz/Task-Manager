@@ -263,23 +263,27 @@ const KanbanBoard = () => {
     const activeTask = tasks.find((t) => t.id === active.id);
     if (!activeTask) return;
 
+    let newStatus = activeTask.status;
+
     // Check if dropped on a column
     const targetColumn = columns.find((col) => col.id === over.id);
     if (targetColumn && activeTask.status !== targetColumn.id) {
-      try {
-        await updateTask(activeTask.id, { status: targetColumn.id });
-      } catch (error) {
-        }
-      return;
+      newStatus = targetColumn.id;
     }
 
     // Check if dropped on another task
     const overTask = tasks.find((t) => t.id === over.id);
     if (overTask && activeTask.status !== overTask.status) {
+      newStatus = overTask.status;
+    }
+
+    // Update task status if changed
+    if (newStatus !== activeTask.status) {
       try {
-        await updateTask(activeTask.id, { status: overTask.status });
+        await updateTask(activeTask.id, { status: newStatus });
       } catch (error) {
-        }
+        console.error('Failed to update task status:', error);
+      }
     }
 
     setActiveId(null);
@@ -302,7 +306,8 @@ const KanbanBoard = () => {
       try {
         await deleteTask(taskId);
       } catch (error) {
-        }
+        console.error('Failed to delete task:', error);
+      }
     }
   };
 
@@ -347,21 +352,62 @@ const KanbanBoard = () => {
       >
         <div className="flex gap-6 overflow-x-auto pb-4">
           {columns.map((column) => (
-            <SortableContext
+            <div
               key={column.id}
-              items={column.tasks.map((task) => task.id)}
-              strategy={verticalListSortingStrategy}
+              className="flex-1 min-w-0 rounded-lg border-2 border-dashed bg-gray-50 p-4"
+              data-column-id={column.id}
             >
-              <KanbanColumn
-                key={column.id}
-                title={column.title}
-                status={column.id}
-                tasks={column.tasks}
-                onAddTask={handleAddTask}
-                onEditTask={handleEditTask}
-                onDeleteTask={handleDeleteTask}
-              />
-            </SortableContext>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">
+                    {column.id === 'todo' ? '📋' : column.id === 'in-progress' ? '⚡' : '✅'}
+                  </span>
+                  <h3 className="font-semibold text-lg">{column.title}</h3>
+                  <Badge variant="secondary" className="ml-2">
+                    {column.tasks.length}
+                  </Badge>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 w-8 p-0"
+                  onClick={() => handleAddTask(column.id)}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <div className="space-y-2 min-h-[200px]">
+                <SortableContext
+                  items={column.tasks.map((task) => task.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {column.tasks.map((task) => (
+                    <SortableTask
+                      key={task.id}
+                      task={task}
+                      onEdit={handleEditTask}
+                      onDelete={handleDeleteTask}
+                    />
+                  ))}
+                </SortableContext>
+                
+                {column.tasks.length === 0 && (
+                  <div className="text-center text-muted-foreground py-8">
+                    <p className="text-sm">No tasks in this column</p>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleAddTask(column.id)}
+                      className="mt-2"
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add Task
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
 

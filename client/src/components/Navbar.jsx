@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useTask } from '@/context/TaskContext';
-import { useTheme } from '@/context/ThemeContext';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -23,14 +22,11 @@ import {
   Menu,
   X,
   Bell,
-  Moon,
-  Sun,
 } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const { getTaskStats } = useTask();
-  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -92,20 +88,6 @@ const Navbar = () => {
 
           {/* Right side items */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="hidden sm:flex"
-            >
-              {theme === 'dark' ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </Button>
-
             {/* Notifications */}
             <Button variant="ghost" size="sm" className="hidden sm:flex">
               <Bell className="h-4 w-4" />
@@ -114,6 +96,12 @@ const Navbar = () => {
                   {stats.overdue}
                 </Badge>
               )}
+            </Button>
+
+            {/* Logout Button */}
+            <Button variant="outline" size="sm" onClick={handleLogout} className="hidden sm:flex">
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
             </Button>
 
             {/* User Menu */}
