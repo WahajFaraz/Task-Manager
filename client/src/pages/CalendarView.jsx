@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useTask } from '@/context/TaskContext';
-import TaskFormDialog from '@/components/TaskFormDialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
-  Calendar as CalendarIcon,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
   ChevronLeft,
   ChevronRight,
-  Plus,
+  Calendar as CalendarIcon,
   Clock,
-  Tag,
-  AlertCircle,
+  MoreHorizontal,
   Edit,
   Trash2,
 } from 'lucide-react';
@@ -144,12 +153,10 @@ const CalendarView = () => {
 
   // Handle deleting task
   const handleDeleteTask = async (taskId) => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
-      try {
-        await deleteTask(taskId);
-      } catch (error) {
-        console.error('Failed to delete task:', error);
-      }
+    try {
+      await deleteTask(taskId);
+    } catch (error) {
+      console.error('Failed to delete task:', error);
     }
   };
 
