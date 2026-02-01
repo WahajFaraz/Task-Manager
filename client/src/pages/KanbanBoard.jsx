@@ -72,7 +72,7 @@ const SortableTask = ({ task, onEdit, onDelete }) => {
 
   return (
     <div ref={setNodeRef} style={style} className="mb-3">
-      <Card className="cursor-move hover:shadow-md transition-shadow">
+      <Card className="cursor-move hover:shadow-md transition-shadow" {...attributes} {...listeners}>
         <CardContent className="p-3">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">

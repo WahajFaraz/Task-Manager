@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useTask } from '@/context/TaskContext';
+import { useTheme } from '@/context/ThemeContext';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -29,10 +30,10 @@ import {
 const Navbar = () => {
   const { user, logout } = useAuth();
   const { getTaskStats } = useTask();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const stats = getTaskStats();
 
@@ -46,11 +47,6 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate('/login');
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
   };
 
   return (
@@ -103,7 +99,7 @@ const Navbar = () => {
               onClick={toggleTheme}
               className="hidden sm:flex"
             >
-              {isDarkMode ? (
+              {theme === 'dark' ? (
                 <Sun className="h-4 w-4" />
               ) : (
                 <Moon className="h-4 w-4" />
