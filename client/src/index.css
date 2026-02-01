@@ -4,11 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Task Manager Design System - Modern, Clean, Professional */
-
 @layer base {
   :root {
-    /* Core brand colors - Sophisticated teal/slate palette */
     --background: 210 20% 98%;
     --foreground: 222 47% 11%;
 

@@ -29,7 +29,6 @@ router.post('/register', [
 
     user = new User({ username, email, password });
     await user.save();
-    console.log('User saved to database:', user.id);
 
     const payload = { id: user.id };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
