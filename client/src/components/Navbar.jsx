@@ -99,9 +99,10 @@ const Navbar = () => {
             </Button>
 
             {/* Logout Button */}
-            <Button variant="outline" size="sm" onClick={handleLogout} className="hidden sm:flex">
+            <Button variant="outline" size="sm" onClick={handleLogout} className="flex">
               <LogOut className="h-4 w-4 mr-2" />
-              Logout
+              <span className="hidden sm:inline">Logout</span>
+              <span className="sm:hidden">Out</span>
             </Button>
 
             {/* User Menu */}

@@ -72,10 +72,10 @@ const SortableTask = ({ task, onEdit, onDelete }) => {
 
   return (
     <div ref={setNodeRef} style={style} className="mb-3">
-      <Card className="cursor-move hover:shadow-md transition-shadow" {...attributes} {...listeners}>
+      <Card className="cursor-move hover:shadow-md transition-shadow">
         <CardContent className="p-3">
           <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0" {...attributes} {...listeners}>
               <h4 className="font-medium text-sm truncate">{task.title}</h4>
               {task.description && (
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
@@ -103,7 +103,7 @@ const SortableTask = ({ task, onEdit, onDelete }) => {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" {...attributes} {...listeners}>
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
