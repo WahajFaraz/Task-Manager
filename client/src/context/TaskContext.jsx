@@ -15,7 +15,8 @@ export const useTask = () => {
 const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [activityData, setActivityData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // Fetch tasks on mount
   const refreshTasks = useCallback(async () => {
@@ -46,6 +47,7 @@ const TaskProvider = ({ children }) => {
       }));
       
       setActivityData(transformedActivityData);
+      setIsInitialLoad(false);
     } catch (error) {
       setTasks([]);
       setActivityData([]);
@@ -169,6 +171,7 @@ const TaskProvider = ({ children }) => {
     tasks,
     activityData,
     isLoading,
+    isInitialLoad,
     addTask,
     updateTask,
     deleteTask,

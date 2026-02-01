@@ -2,9 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useTask } from '@/context/TaskContext';
 import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   AreaChart,
   Area,
@@ -29,6 +31,7 @@ import {
   Zap,
   Calendar,
   Users,
+  LogOut,
   Award,
   Activity,
   BarChart3,
@@ -37,9 +40,24 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { tasks, getTaskStats, activityData } = useTask();
-  const { user } = useAuth();
+  const { tasks, getTaskStats, activityData, isInitialLoad } = useTask();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const stats = getTaskStats();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  // Don't render anything until initial load is complete
+  if (isInitialLoad) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   const chartData = activityData.slice(-7).map((day) => ({
     date: new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' }),
@@ -78,9 +96,15 @@ const Dashboard = () => {
             Here's what's happening with your tasks today.
           </p>
         </div>
-        <div className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200`}>
-          <AchievementIcon className={`h-5 w-5 ${achievement.color}`} />
-          <span className={`font-semibold ${achievement.color}`}>{achievement.level}</span>
+        <div className="flex items-center gap-4">
+          <div className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200`}>
+            <AchievementIcon className={`h-5 w-5 ${achievement.color}`} />
+            <span className={`font-semibold ${achievement.color}`}>{achievement.level}</span>
+          </div>
+          <Button variant="destructive" size="sm" onClick={handleLogout} className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white">
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
         </div>
       </motion.div>
 
