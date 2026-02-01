@@ -99,8 +99,8 @@ const Navbar = () => {
             </Button>
 
             {/* Logout Button */}
-            <Button variant="outline" size="sm" onClick={handleLogout} className="flex">
-              <LogOut className="h-4 w-4 mr-2" />
+            <Button variant="destructive" size="sm" onClick={handleLogout} className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white">
+              <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Logout</span>
               <span className="sm:hidden">Out</span>
             </Button>
